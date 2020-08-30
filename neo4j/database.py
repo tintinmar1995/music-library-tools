@@ -16,14 +16,24 @@ class MusicGraph():
         self.graph.run('CALL n10s.graphconfig.init();')
 
         # Create ontology constraint
-        # this script can fail if already initiated
         try :
             self.graph.run('CREATE CONSTRAINT n10s_unique_uri ON (r:Resource) ASSERT r.uri IS UNIQUE;')
         except :
-            pass
+            pass # this script can fail if already initiated
 
         # Fetch ontology and import it
-        self.graph.run('CALL n10s.rdf.import.fetch("{}","{}");'.format(owl_url, owl_format))
-        
+        ## "n10s.ONTO.import" is way better than "n10s.RDF.import" to import ONTOLOGIES
+        ## A lot of information in RDF files are used to help Neo4j importing ONTOLOGY
+        self.graph.run('CALL n10s.onto.import.fetch("{}","{}");'.format(owl_url, owl_format))
+    
+    def save(self):
+        pass #TODO : save as RDFS
+    
+    def load_backup(self):
+        # self.graph.run('CALL n10s.rdf.import.fetch("{}","{}");'.format(owl_url, owl_format))
+        pass #TODO : load from RDFS
+    
     def clear(self):
-        self.graph.run("MATCH (n) DETACH DELETE n")
+        res = input("Press yyy to confirm...")
+        if res == "yyy" :
+            self.graph.run("MATCH (n) DETACH DELETE n")
