@@ -1,11 +1,12 @@
 # music-library-tools
 
-## Export music metadata into a Neo4j database
+## Index music metadata into a Neo4j database
 
 - Install Neo4j and semantic plugin with docker
 - Import Music Ontology 
 - TODO : Add songs, artists, albums
 - TODO : Analyze your library
+- TODO : Automatically create playlists
 
 ## Tools to manage library
 
